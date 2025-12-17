@@ -46,4 +46,13 @@ export class WorkflowsResolver {
   ): Promise<boolean> {
     return this.workflowsService.remove(id);
   }
+
+  @Mutation(() => Workflow)
+  @UseGuards(GqlAuthGuard)
+  async updateWorkflowOrder(
+    @Args('id', { type: () => Int }) id: number,
+    @Args('workflow_order') workflow_order: number,
+  ): Promise<Workflow> {
+    return this.workflowsService.updateOrder(id, workflow_order);
+  }
 }

@@ -56,6 +56,7 @@ input CreatePaymentInput {
 input CreateWorkflowInput {
   label: String!
   url_path: String!
+  workflow_order: Float!
 }
 
 """
@@ -110,6 +111,7 @@ type Mutation {
   updatePatient(id: Int!, updatePatientInput: CreatePatientInput!): Patient!
   updatePayment(id: Int!, updatePaymentInput: CreatePaymentInput!): Payment!
   updateWorkflow(id: Int!, updateWorkflowInput: CreateWorkflowInput!): Workflow!
+  updateWorkflowOrder(id: Int!, workflow_order: Float!): Workflow!
 }
 
 type Patient {

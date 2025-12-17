@@ -362,6 +362,15 @@ export const DELETE_WORKFLOW = gql`
   }
 `;
 
+export const UPDATE_WORKFLOW_ORDER = gql`
+  mutation UpdateWorkflowOrder($id: Int!, $workflow_order: Float!) {
+    updateWorkflowOrder(id: $id, workflow_order: $workflow_order) {
+      id
+      workflow_order
+    }
+  }
+`;
+
 // Users
 export const GET_USERS = gql`
   query GetUsers {

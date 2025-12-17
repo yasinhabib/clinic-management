@@ -48,6 +48,12 @@ export class WorkflowsService {
     return (result.affected ?? 0) > 0;
   }
 
+  async updateOrder(id: number, workflow_order: number): Promise<Workflow> {
+    const workflow = await this.findOne(id);
+    workflow.workflow_order = workflow_order;
+    return this.workflowsRepository.save(workflow);
+  }
+
   private async getMaxWorkflowOrder(): Promise<number> {
     const result = await this.workflowsRepository
       .createQueryBuilder('workflow')

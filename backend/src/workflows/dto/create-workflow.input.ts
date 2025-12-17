@@ -12,4 +12,7 @@ export class CreateWorkflowInput {
   @IsNotEmpty()
   @IsString()
   url_path: string;
+
+  @Field()
+  workflow_order: number;
 }
