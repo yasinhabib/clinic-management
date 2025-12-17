@@ -1,0 +1,179 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Appointment {
+  created_date: DateTime!
+  examinations: [Examination!]
+  id: ID!
+  patient: Patient!
+  status: AppointmentStatus!
+  tanggal: String!
+  updated_date: DateTime!
+  waktu: String!
+}
+
+enum AppointmentStatus {
+  C
+  P
+  S
+}
+
+input CreateAppointmentInput {
+  patientId: Int!
+  status: AppointmentStatus
+  tanggal: String!
+  waktu: String!
+}
+
+input CreateExaminationInput {
+  appointmentId: Int!
+  hasil_pemeriksaan: String!
+  nama_dokter: String!
+}
+
+input CreateMedicineInput {
+  examinationId: Int!
+  harga: Float!
+  jumlah: Int!
+  nama: String!
+}
+
+input CreatePatientInput {
+  jenis_kelamin: Gender!
+  nama_lengkap: String!
+  no_telp: String!
+  umur: Float!
+}
+
+input CreatePaymentInput {
+  biaya_pemeriksaan: Float!
+  examinationId: Int!
+  status: PaymentStatus
+  tanggal: String!
+}
+
+input CreateWorkflowInput {
+  label: String!
+  url_path: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Examination {
+  appointment: Appointment!
+  created_date: DateTime!
+  hasil_pemeriksaan: String!
+  id: ID!
+  medicines: [Medicine!]
+  nama_dokter: String!
+  payments: Payment
+  updated_date: DateTime!
+}
+
+enum Gender {
+  L
+  P
+}
+
+type Medicine {
+  created_date: DateTime!
+  examination: Examination!
+  harga: Float!
+  id: ID!
+  jumlah: Float!
+  nama: String!
+  updated_date: DateTime!
+}
+
+type Mutation {
+  createAppointment(createAppointmentInput: CreateAppointmentInput!): Appointment!
+  createExamination(createExaminationInput: CreateExaminationInput!): Examination!
+  createMedicine(createMedicineInput: CreateMedicineInput!): Medicine!
+  createPatient(createPatientInput: CreatePatientInput!): Patient!
+  createPayment(createPaymentInput: CreatePaymentInput!): Payment!
+  createWorkflow(createWorkflowInput: CreateWorkflowInput!): Workflow!
+  deleteAppointment(id: Int!): Boolean!
+  deleteExamination(id: Int!): Boolean!
+  deleteMedicine(id: Int!): Boolean!
+  deletePatient(id: Int!): Boolean!
+  deletePayment(id: Int!): Boolean!
+  deleteWorkflow(id: Int!): Boolean!
+  updateAppointment(id: Int!, updateAppointmentInput: CreateAppointmentInput!): Appointment!
+  updateExamination(id: Int!, updateExaminationInput: CreateExaminationInput!): Examination!
+  updateMedicine(id: Int!, updateMedicineInput: CreateMedicineInput!): Medicine!
+  updatePatient(id: Int!, updatePatientInput: CreatePatientInput!): Patient!
+  updatePayment(id: Int!, updatePaymentInput: CreatePaymentInput!): Payment!
+  updateWorkflow(id: Int!, updateWorkflowInput: CreateWorkflowInput!): Workflow!
+}
+
+type Patient {
+  appointments: [Appointment!]
+  created_date: DateTime!
+  id: ID!
+  jenis_kelamin: Gender!
+  kode_pasien: String!
+  nama_lengkap: String!
+  no_telp: String!
+  umur: Float!
+  updated_date: DateTime!
+}
+
+type Payment {
+  biaya_obat: Float!
+  biaya_pemeriksaan: Float!
+  created_date: DateTime!
+  examination: Examination!
+  id: ID!
+  status: PaymentStatus!
+  tanggal: DateTime!
+  updated_date: DateTime!
+}
+
+enum PaymentStatus {
+  P
+  S
+}
+
+type Query {
+  appointment(id: Int!): Appointment!
+  appointments: [Appointment!]!
+  examination(id: Int!): Examination!
+  examinations: [Examination!]!
+  medicine(id: Int!): Medicine!
+  medicines: [Medicine!]!
+  patient(id: Int!): Patient!
+  patients: [Patient!]!
+  payment(id: Int!): Payment!
+  payments: [Payment!]!
+  user(id: Int!): User
+  users: [User!]!
+  workflow(id: Int!): Workflow!
+  workflows: [Workflow!]!
+}
+
+type User {
+  created_date: DateTime!
+  email: String!
+  id: ID!
+  role: UserRole!
+  updated_date: DateTime!
+  username: String!
+}
+
+enum UserRole {
+  ADMIN
+  STAFF
+}
+
+type Workflow {
+  created_date: DateTime!
+  id: ID!
+  label: String!
+  updated_date: DateTime!
+  url_path: String!
+  workflow_order: Float!
+}
