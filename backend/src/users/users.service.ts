@@ -58,10 +58,38 @@ export class UsersService implements OnModuleInit {
   }
 
   async findById(id: number): Promise<User | null> {
-    return this.usersRepository.findOne({ where: { id }, relations: ['posts'] });
+    return this.usersRepository.findOne({ where: { id } });
   }
 
   async findAll(): Promise<User[]> {
-    return this.usersRepository.find({ relations: ['posts'] });
+    return this.usersRepository.find({ where: { role: UserRole.STAFF } });
+  }
+
+  async createStaff(email: string, username: string, createdBy: number): Promise<User> {
+    const existingUser = await this.usersRepository.findOne({ where: { email } });
+    if (existingUser) {
+      throw new ConflictException('Email already exists');
+    }
+
+    const hashedPassword = await bcrypt.hash('admin', 10);
+    const user = this.usersRepository.create({
+      email,
+      username,
+      password: hashedPassword,
+      role: UserRole.STAFF,
+    });
+
+    const savedUser = await this.usersRepository.save(user);
+    savedUser.created_by = createdBy;
+    savedUser.updated_by = createdBy;
+    return this.usersRepository.save(savedUser);
+  }
+
+  async deleteUser(id: number): Promise<void> {
+    const user = await this.usersRepository.findOne({ where: { id } });
+    if (!user) {
+      throw new Error('User not found');
+    }
+    await this.usersRepository.remove(user);
   }
 }

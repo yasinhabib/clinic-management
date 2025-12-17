@@ -361,3 +361,33 @@ export const DELETE_WORKFLOW = gql`
     deleteWorkflow(id: $id)
   }
 `;
+
+// Users
+export const GET_USERS = gql`
+  query GetUsers {
+    users {
+      id
+      email
+      username
+      role
+      created_date
+    }
+  }
+`;
+
+export const CREATE_STAFF = gql`
+  mutation CreateStaff($email: String!, $username: String!) {
+    createStaff(email: $email, username: $username) {
+      id
+      email
+      username
+      role
+    }
+  }
+`;
+
+export const DELETE_USER = gql`
+  mutation DeleteUser($id: Int!) {
+    deleteUser(id: $id)
+  }
+`;

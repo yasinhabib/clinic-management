@@ -21,6 +21,8 @@ import { EditPayment } from './components/EditPayment';
 import { WorkflowList } from './components/WorkflowList';
 import { CreateWorkflow } from './components/CreateWorkflow';
 import { EditWorkflow } from './components/EditWorkflow';
+import { UserList } from './components/UserList';
+import { CreateStaff } from './components/CreateStaff';
 
 function App() {
   return (
@@ -47,6 +49,8 @@ function App() {
               <Route path="workflows" element={<ProtectedRoute><WorkflowList /></ProtectedRoute>} />
               <Route path="workflows/create" element={<ProtectedRoute><CreateWorkflow /></ProtectedRoute>} />
               <Route path="workflows/edit/:id" element={<ProtectedRoute><EditWorkflow /></ProtectedRoute>} />
+              <Route path="users" element={<ProtectedRoute><UserList /></ProtectedRoute>} />
+              <Route path="users/create" element={<ProtectedRoute><CreateStaff /></ProtectedRoute>} />
             </Route>
           </Routes>
         </Router>

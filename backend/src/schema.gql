@@ -95,12 +95,14 @@ type Mutation {
   createMedicine(createMedicineInput: CreateMedicineInput!): Medicine!
   createPatient(createPatientInput: CreatePatientInput!): Patient!
   createPayment(createPaymentInput: CreatePaymentInput!): Payment!
+  createStaff(email: String!, username: String!): User!
   createWorkflow(createWorkflowInput: CreateWorkflowInput!): Workflow!
   deleteAppointment(id: Int!): Boolean!
   deleteExamination(id: Int!): Boolean!
   deleteMedicine(id: Int!): Boolean!
   deletePatient(id: Int!): Boolean!
   deletePayment(id: Int!): Boolean!
+  deleteUser(id: Int!): Boolean!
   deleteWorkflow(id: Int!): Boolean!
   updateAppointment(id: Int!, updateAppointmentInput: CreateAppointmentInput!): Appointment!
   updateExamination(id: Int!, updateExaminationInput: CreateExaminationInput!): Examination!

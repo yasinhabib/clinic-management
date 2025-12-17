@@ -33,8 +33,4 @@ export class AuthService {
     };
   }
 
-  async register(email: string, username: string, password: string) {
-    const user = await this.usersService.create(email, username, password);
-    return this.login(user);
-  }
 }
