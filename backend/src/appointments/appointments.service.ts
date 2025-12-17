@@ -27,7 +27,7 @@ export class AppointmentsService {
   async findOne(id: number): Promise<Appointment> {
     const appointment = await this.appointmentsRepository.findOne({
       where: { id },
-      relations: ['patient'],
+      relations: ['patient', 'examination'],
     });
     if (!appointment) {
       throw new NotFoundException(`Appointment with ID ${id} not found`);

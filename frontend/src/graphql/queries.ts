@@ -90,6 +90,9 @@ export const GET_APPOINTMENT = gql`
       waktu
       status
       created_date
+      examination {
+        id
+      }
     }
   }
 `;
@@ -212,6 +215,17 @@ export const GET_MEDICINE = gql`
       harga
       jumlah
       created_date
+    }
+  }
+`;
+
+export const GET_MEDICINES_BY_EXAMINATION = gql`
+  query GetMedicinesByExamination($examinationId: Int!) {
+    medicines(where: { examination: { id: $examinationId } }) {
+      id
+      nama
+      harga
+      jumlah
     }
   }
 `;

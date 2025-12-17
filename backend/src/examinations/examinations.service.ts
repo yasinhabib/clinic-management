@@ -3,15 +3,26 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Examination } from './entities/examination.entity';
 import { CreateExaminationInput } from './dto/create-examination.input';
+import { Appointment } from '../appointments/entities/appointment.entity';
 
 @Injectable()
 export class ExaminationsService {
   constructor(
     @InjectRepository(Examination)
     private examinationsRepository: Repository<Examination>,
+    @InjectRepository(Appointment)
+    private appointmentsRepository: Repository<Appointment>,
   ) {}
 
   async create(createExaminationInput: CreateExaminationInput, userId: number): Promise<Examination> {
+    // Check if appointment exists
+    const appointment = await this.appointmentsRepository.findOne({
+      where: { id: createExaminationInput.appointmentId },
+    });
+    if (!appointment) {
+      throw new NotFoundException(`Appointment with ID ${createExaminationInput.appointmentId} not found`);
+    }
+
     const examination = this.examinationsRepository.create({
       ...createExaminationInput,
       created_by: userId,

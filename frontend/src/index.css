@@ -1,1 +1,10 @@
 @import "tailwindcss";
+
+.react-calendar__tile.highlight {
+  background: #3b82f6 !important;
+  color: white !important;
+}
+
+.react-calendar__tile.highlight:hover {
+  background: #2563eb !important;
+}

@@ -12,15 +12,21 @@ export class PatientsService {
   ) {}
 
   async create(createPatientInput: CreatePatientInput, userId: number): Promise<Patient> {
+    // Get next ID for kode_pasien generation
+    const maxIdResult = await this.patientsRepository
+      .createQueryBuilder('patient')
+      .select('MAX(patient.id)', 'maxId')
+      .getRawOne();
+    const nextId = (maxIdResult?.maxId || 0) + 1;
+    const kode_pasien = `PSN-${nextId.toString().padStart(6, '0')}`;
+
     const patient = this.patientsRepository.create({
       ...createPatientInput,
+      kode_pasien,
       created_by: userId,
       updated_by: userId,
     });
-    const savedPatient = await this.patientsRepository.save(patient);
-    // Generate kode_pasien
-    savedPatient.kode_pasien = `PSN-${savedPatient.id.toString().padStart(6, '0')}`;
-    return this.patientsRepository.save(savedPatient);
+    return this.patientsRepository.save(patient);
   }
 
   async findAll(): Promise<Patient[]> {

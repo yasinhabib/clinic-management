@@ -1,12 +1,14 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, OneToOne } from 'typeorm';
 import { ObjectType, Field, ID, registerEnumType } from '@nestjs/graphql';
 import { Patient } from '../../patients/entities/patient.entity';
 import { Examination } from '../../examinations/entities/examination.entity';
 
 export enum AppointmentStatus {
-  P = 'P',
-  S = 'S',
-  C = 'C',
+  P = "P",
+  S = "S",
+  C = "C",
+  D = "D",
+  E = "E",
 }
 
 registerEnumType(AppointmentStatus, {
@@ -56,7 +58,7 @@ export class Appointment {
   @Column({ nullable: true })
   updated_by: number;
 
-  @Field(() => [Examination], { nullable: true })
-  @OneToMany(() => Examination, (examination) => examination.appointment)
-  examinations: Examination[];
+  @Field(() => Examination, { nullable: true })
+  @OneToOne(() => Examination, (examination) => examination.appointment, { nullable: true })
+  examination: Examination;
 }

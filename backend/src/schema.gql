@@ -4,7 +4,7 @@
 
 type Appointment {
   created_date: DateTime!
-  examinations: [Examination!]
+  examination: Examination
   id: ID!
   patient: Patient!
   status: AppointmentStatus!
@@ -15,15 +15,17 @@ type Appointment {
 
 enum AppointmentStatus {
   C
+  D
+  E
   P
   S
 }
 
 input CreateAppointmentInput {
-  patientId: Int!
+  patientId: Int
   status: AppointmentStatus
-  tanggal: String!
-  waktu: String!
+  tanggal: String
+  waktu: String
 }
 
 input CreateExaminationInput {
@@ -47,6 +49,7 @@ input CreatePatientInput {
 }
 
 input CreatePaymentInput {
+  biaya_obat: Float!
   biaya_pemeriksaan: Float!
   examinationId: Int!
   status: PaymentStatus

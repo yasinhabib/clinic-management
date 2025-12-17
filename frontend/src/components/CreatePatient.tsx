@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { CREATE_PATIENT, GET_PATIENTS } from '../graphql/queries';
 import { useAuth } from '../contexts/AuthContext';
 import { useMutation } from '@apollo/client/react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export const CreatePatient = () => {
   const [namaLengkap, setNamaLengkap] = useState('');
@@ -11,6 +11,8 @@ export const CreatePatient = () => {
   const [noTelp, setNoTelp] = useState('');
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const fromModal = location.state?.fromModal;
 
   const [createPatient, { loading }] = useMutation(CREATE_PATIENT, {
     refetchQueries: [{ query: GET_PATIENTS }],
@@ -33,7 +35,11 @@ export const CreatePatient = () => {
       setUmur('');
       setJenisKelamin('L');
       setNoTelp('');
-      navigate('/patients');
+      if (fromModal) {
+        navigate('/workflow/appointment', { state: { showModal: true } });
+      } else {
+        navigate('/patients');
+      }
     } catch (error) {
       console.error('Error creating patient:', error);
       alert('Failed to create patient');
@@ -107,7 +113,13 @@ export const CreatePatient = () => {
         <div className="flex justify-end space-x-3">
           <button
             type="button"
-            onClick={() => navigate('/patients')}
+            onClick={() => {
+              if (fromModal) {
+                navigate('/workflow/appointment', { state: { showModal: true } });
+              } else {
+                navigate('/patients');
+              }
+            }}
             className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
           >
             Cancel

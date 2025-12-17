@@ -15,6 +15,10 @@ export class CreatePaymentInput {
   @IsNumber()
   biaya_pemeriksaan: number;
 
+  @Field()
+  @IsNumber()
+  biaya_obat: number;
+
   @Field(() => PaymentStatus, { nullable: true })
   @IsEnum(PaymentStatus)
   status?: PaymentStatus;

@@ -16,6 +16,7 @@ export class PaymentsService {
     const biayaObat = await this.calculateBiayaObat(createPaymentInput.examinationId);
     const payment = this.paymentsRepository.create({
       ...createPaymentInput,
+      tanggal: new Date(createPaymentInput.tanggal),
       biaya_obat: biayaObat,
       created_by: userId,
       updated_by: userId,

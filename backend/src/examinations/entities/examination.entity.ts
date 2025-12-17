@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, OneToOne, JoinColumn } from 'typeorm';
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { Appointment } from '../../appointments/entities/appointment.entity';
 import { Medicine } from '../../medicines/entities/medicine.entity';
@@ -12,7 +12,8 @@ export class Examination {
   id: number;
 
   @Field(() => Appointment)
-  @ManyToOne(() => Appointment)
+  @OneToOne(() => Appointment, (appointment) => appointment.examination)
+  @JoinColumn({ name: 'appointmentId' })
   appointment: Appointment;
 
   @Column()

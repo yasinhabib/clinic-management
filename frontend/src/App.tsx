@@ -23,6 +23,11 @@ import { CreateWorkflow } from './components/CreateWorkflow';
 import { EditWorkflow } from './components/EditWorkflow';
 import { UserList } from './components/UserList';
 import { CreateStaff } from './components/CreateStaff';
+import { Registrasi } from './components/Registrasi';
+import { WorkflowAppointment } from './components/WorkflowAppointment';
+import { WorkflowExamination } from './components/WorkflowExamination';
+import { WorkflowMedicine } from './components/WorkflowMedicine';
+import { WorkflowPayment } from './components/WorkflowPayment';
 
 function App() {
   return (
@@ -51,6 +56,11 @@ function App() {
               <Route path="workflows/edit/:id" element={<ProtectedRoute><EditWorkflow /></ProtectedRoute>} />
               <Route path="users" element={<ProtectedRoute><UserList /></ProtectedRoute>} />
               <Route path="users/create" element={<ProtectedRoute><CreateStaff /></ProtectedRoute>} />
+              <Route path="registrasi" element={<ProtectedRoute><Registrasi /></ProtectedRoute>} />
+              <Route path="workflow/appointment" element={<ProtectedRoute><WorkflowAppointment /></ProtectedRoute>} />
+              <Route path="workflow/examination" element={<ProtectedRoute><WorkflowExamination /></ProtectedRoute>} />
+              <Route path="workflow/medicine" element={<ProtectedRoute><WorkflowMedicine /></ProtectedRoute>} />
+              <Route path="workflow/payment" element={<ProtectedRoute><WorkflowPayment /></ProtectedRoute>} />
             </Route>
           </Routes>
         </Router>
